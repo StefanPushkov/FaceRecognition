@@ -4,6 +4,7 @@ import face_recognition
 import imutils
 import time
 import cv2
+import pickle
 from Main.Demo.CreatingWhiteList import WhiteList as whtlst
 import datetime
 
@@ -13,7 +14,8 @@ with open(cf.base_dir+'/DB_csv/records.csv','w+') as f:
     f.write("\n")
 
 def Recognition():
-    known_encodings, known_names = whtlst()
+    data = pickle.loads(open(cf.base_dir+'/EncodedFaces/EncodedFaces.pickle', "rb").read())
+    known_encodings, known_names = data['encodings'], data['names']
     print("[INFO] starting video stream...")
     vs = VideoStream(src=0).start()
     writer = None

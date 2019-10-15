@@ -1,6 +1,6 @@
 import os
 
-raw_data = "/tData/"
+raw_data = "/Data/"
 BASE_DIR = 'Main'
 
 VideoOut_file = 'C:/Storage/DDG_FaceRecog/CompVision/Main/Data/out.avi'

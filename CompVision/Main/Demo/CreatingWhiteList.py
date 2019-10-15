@@ -3,6 +3,7 @@ from Main.Demo import config as cf
 import os
 import cv2
 import face_recognition
+import pickle
 
 def WhiteList():
     imagePaths = list(paths.list_images(cf.base_dir+cf.raw_data))
@@ -14,7 +15,7 @@ def WhiteList():
         # extract the person name from the image path
         print("[INFO] processing image {}/{}".format(i + 1,
                                                      len(imagePaths)))
-        name = imagePath.split('/')[-1]
+        name = imagePath.replace("\\","/").split('/')[-2]
         print(name)
 
         # load the input image and convert it from BGR (OpenCV ordering)
@@ -35,6 +36,13 @@ def WhiteList():
             # encodings
             knownEncodings.append(encoding)
             knownNames.append(name)
+
+    # dump the facial encodings + names to disk
+    print("[INFO] serializing encodings...")
+    data = {"encodings": knownEncodings, "names": knownNames}
+    f = open(cf.base_dir+'/EncodedFaces/EncodedFaces.pickle', "wb")
+    f.write(pickle.dumps(data))
+    f.close()
     return knownEncodings, knownNames
 
 if __name__ == '__main__':
