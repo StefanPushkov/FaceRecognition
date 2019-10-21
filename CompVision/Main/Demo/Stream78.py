@@ -25,7 +25,7 @@ def Recognition():
     writer = None
     time.sleep(2.0)
 
-    num_frames = 5
+    num_frames = 20
 
     # loop over frames from the video file stream
     while True:
@@ -102,7 +102,7 @@ def Recognition():
                             0.75, (0, 255, 0), 2)
 
                 '''
-
+            '''
             if writer is None and cf.VideoOut_file is not None:
                 fourcc = cv2.VideoWriter_fourcc(*"MJPG")
                 writer = cv2.VideoWriter(cf.VideoOut_file, fourcc, 20,
@@ -114,6 +114,7 @@ def Recognition():
                 writer.write(frame)
                     # check to see if we are supposed to display the output frame to
                     # the screen
+            '''
             '''
             if len(boxes) >= 0:
                 rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
