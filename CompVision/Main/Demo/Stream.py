@@ -21,11 +21,11 @@ def Recognition():
     print("[INFO] starting video stream...")
     # vs = VideoStream('rtsp://80.254.24.22:554').start()
     cap = cv2.VideoCapture()
-    cap.open('rtsp://80.254.24.22:554')
+    cap.open('rtsp://192.168.10.165:554')
     writer = None
     time.sleep(2.0)
 
-    num_frames = 20
+    num_frames = 100
 
     # loop over frames from the video file stream
     while True:
@@ -34,14 +34,14 @@ def Recognition():
         for i in range(0, num_frames):
             ret, frame = cap.read() # for VideoCapture()
             # frame = vs.read()
-
-
+            # frame = imutils.resize(frame, width=750)
+            # cv2.imshow('Frame1', frame)
             # convert the input frame from BGR to RGB then resize it to have
             # a width of 750px (to speedup processing)
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            # cv2.imshow('Frame', rgb)
+            # cv2.imshow('Frame2', rgb)
             rgb_resize = imutils.resize(rgb, width=1050)
-            # cv2.imshow('Frame', rgb_resize)
+            cv2.imshow('Frame3', rgb_resize)
             r = frame.shape[1] / float(rgb_resize.shape[1])
 
 
@@ -84,57 +84,55 @@ def Recognition():
 
 
 
-                # update the list of names
+                    # update the list of names
                 names.append(name)
-                csv_line = name + ";" + str(detection_at)
 
+                csv_line = name + ";" + str(detection_at)
                 with open(cf.base_dir + '/DB_csv/records.csv', 'a') as outfile:
                     outfile.write(csv_line + "\n")
             for ((top, right, bottom, left), name) in zip(boxes, names):
-                # rescale the face coordinates
+                  # rescale the face coordinates
                 top = int(top)
                 right = int(right)
                 bottom = int(bottom)
                 left = int(left)
 
-                # draw the predicted face name on the image
+                        # draw the predicted face name on the image
                 cv2.rectangle(frame, (left, top), (right, bottom),
-                              (0, 255, 0), 2)
+                                (0, 255, 0), 2)
                 y = top - 15 if top - 15 > 15 else top + 15
                 cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
                             0.75, (0, 255, 0), 2)
 
 
-            # if the video writer is None *AND* we are supposed to write
-            # the output video to disk initialize the writer
+
             if writer is None and cf.VideoOut_file is not None:
                 fourcc = cv2.VideoWriter_fourcc(*"MJPG")
                 writer = cv2.VideoWriter(cf.VideoOut_file, fourcc, 20,
-                                         (frame.shape[1], frame.shape[0]), True)
+                                        (frame.shape[1], frame.shape[0]), True)
 
-            # if the writer is not None, write the frame with recognized
-            # faces to disk
+                # if the writer is not None, write the frame with recognized
+                # faces to disk
             if writer is not None:
                 writer.write(frame)
-                # check to see if we are supposed to display the output frame to
-                # the screen
-                if 1 > 0:
-                    # cv2.imshow("Frame", frame)
-                    key = cv2.waitKey(1) & 0xFF
+                    # check to see if we are supposed to display the output frame to
+                    # the screen
+            if len(boxes) >= 0:
+                rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                rgb_resize = imutils.resize(rgb, width=1050)
+                cv2.imshow("Frame", rgb_resize)
+            key = cv2.waitKey(1) & 0xFF
 
                     # if the `q` key was pressed, break from the loop
-                    if key == ord("q"):
-                        break
-                        # cv2.destroyAllWindows()
-        # do a bit of cleanup
-        cap.release()
-        # cv2.destroyAllWindows()
-                    #cv2.destroyAllWindows()q
-                    #frame.release()
-    
-    # check to see if the video writer point needs to be released
-        if writer is not None:
-            writer.release()
+            if key == ord("q"):
+                break
+        break
+
+    #cv2.destroyAllWindows()
+    cap.release()
+    writer.release()
+
+
 
 if __name__ == '__main__':
     Recognition()
