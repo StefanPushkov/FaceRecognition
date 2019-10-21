@@ -9,7 +9,8 @@ import pickle
 import CreatingWhiteList as whtlst
 import datetime
 
-
+if not os.path.exists(cf.base_dir + '/DB_csv/'):
+    os.makedirs(cf.base_dir + '/DB_csv/')
 with open(cf.base_dir+'/DB_csv/records.csv','w+') as f:
     f.write("Person; Time")
     f.write("\n")
@@ -86,8 +87,7 @@ def Recognition():
                 # update the list of names
                 names.append(name)
                 csv_line = name + ";" + str(detection_at)
-                if not os.path.exists(cf.base_dir + '/DB_csv/'):
-                    os.makedirs(cf.base_dir + '/DB_csv/')
+
                 with open(cf.base_dir + '/DB_csv/records.csv', 'a') as outfile:
                     outfile.write(csv_line + "\n")
             for ((top, right, bottom, left), name) in zip(boxes, names):
