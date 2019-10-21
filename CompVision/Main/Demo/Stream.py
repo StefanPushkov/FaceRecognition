@@ -1,5 +1,5 @@
 from imutils.video import VideoStream
-from Main.Demo import config as cf
+import config as cf
 import face_recognition
 import imutils
 import time
