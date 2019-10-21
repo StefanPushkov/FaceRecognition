@@ -25,7 +25,7 @@ def Recognition():
     writer = None
     time.sleep(2.0)
 
-    num_frames = 100
+    num_frames = 5
 
     # loop over frames from the video file stream
     while True:
