@@ -1,5 +1,6 @@
 from imutils.video import VideoStream
 import config as cf
+import os
 import face_recognition
 import imutils
 import time
@@ -85,6 +86,8 @@ def Recognition():
                 # update the list of names
                 names.append(name)
                 csv_line = name + ";" + str(detection_at)
+                if not os.path.exists(cf.base_dir + '/DB_csv/'):
+                    os.makedirs(cf.base_dir + '/DB_csv/')
                 with open(cf.base_dir + '/DB_csv/records.csv', 'a') as outfile:
                     outfile.write(csv_line + "\n")
             for ((top, right, bottom, left), name) in zip(boxes, names):
