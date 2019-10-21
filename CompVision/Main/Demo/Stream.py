@@ -19,7 +19,7 @@ def Recognition():
     data = pickle.loads(open(cf.base_dir+'/EncodedFaces/EncodedFaces.pickle', "rb").read())
     known_encodings, known_names = data['encodings'], data['names']
     print("[INFO] starting video stream...")
-    # vs = VideoStream('rtsp://80.254.24.22:554').start()
+    # vs = VideoStream('rtsp://80.254.24.22:554').start()  # rtsp://80.254.24.22:554  rtsp://192.168.10.165:554
     cap = cv2.VideoCapture()
     cap.open('rtsp://192.168.10.165:554')
     writer = None
@@ -33,6 +33,7 @@ def Recognition():
         # grab the frame from the threaded video stream
         for i in range(0, num_frames):
             ret, frame = cap.read() # for VideoCapture()
+            print(ret)
             # frame = vs.read()
             # frame = imutils.resize(frame, width=750)
             # cv2.imshow('Frame1', frame)

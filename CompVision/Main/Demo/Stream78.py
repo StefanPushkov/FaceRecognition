@@ -32,7 +32,9 @@ def Recognition():
 
         # grab the frame from the threaded video stream
         for i in range(0, num_frames):
+
             ret, frame = cap.read() # for VideoCapture()
+            print(ret)
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             rgb_resize = imutils.resize(rgb, width=1050)
             # cv2.imshow('Frame3', rgb_resize)
