@@ -9,6 +9,9 @@ import pickle
 import CreatingWhiteList as whtlst
 import datetime
 
+VideoOutFile = '/home/spushkov/FaceRecognition/CompVision/Main/Data/out.avi'
+
+
 if not os.path.exists(cf.base_dir + '/DB_csv'):
     os.makedirs(cf.base_dir + '/DB_csv')
     with open(cf.base_dir + '/DB_csv/records.csv', 'a') as f:
@@ -104,7 +107,7 @@ def Recognition():
 
 
 
-            if writer is None and cf.VideoOut_file is not None:
+            if writer is None and VideoOutFile is not None:
                 fourcc = cv2.VideoWriter_fourcc(*"MJPG")
                 writer = cv2.VideoWriter(cf.VideoOut_file, fourcc, 20,
                                         (frame.shape[1], frame.shape[0]), True)
