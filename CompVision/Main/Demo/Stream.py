@@ -5,7 +5,7 @@ import imutils
 import time
 import cv2
 import pickle
-from CompVision.Main.Demo.CreatingWhiteList import WhiteList as whtlst
+import CreatingWhiteList as whtlst
 import datetime
 
 
