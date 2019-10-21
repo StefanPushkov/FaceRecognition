@@ -1,5 +1,5 @@
 from imutils import paths
-from CompVision.Main.Demo import config as cf
+from Main.Demo import config as cf
 import os
 import cv2
 import face_recognition
