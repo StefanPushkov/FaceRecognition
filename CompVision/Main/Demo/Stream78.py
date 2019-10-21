@@ -22,7 +22,7 @@ def Recognition():
     print("[INFO] starting video stream...")
     # vs = VideoStream('rtsp://80.254.24.22:554').start()  # rtsp://80.254.24.22:554  rtsp://192.168.10.165:554
     cap = cv2.VideoCapture()
-    cap.open('rtsp://192.168.10.165:554')
+    cap.open('rtsp://80.254.24.22:554')
     writer = None
     time.sleep(2.0)
 
