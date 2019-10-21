@@ -1,4 +1,3 @@
-from imutils.video import VideoStream
 import config as cf
 import os
 import face_recognition
@@ -109,7 +108,7 @@ def Recognition():
 
             if writer is None and VideoOutFile is not None:
                 fourcc = cv2.VideoWriter_fourcc(*"MJPG")
-                writer = cv2.VideoWriter(cf.VideoOut_file, fourcc, 20,
+                writer = cv2.VideoWriter(VideoOutFile, fourcc, 20,
                                         (frame.shape[1], frame.shape[0]), True)
 
                 # if the writer is not None, write the frame with recognized
