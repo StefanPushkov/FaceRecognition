@@ -99,10 +99,10 @@ def Recognition():
                 left = int(left)
 
                         # draw the predicted face name on the image
-                cv2.rectangle(frame, (left, top), (right, bottom),
+                cv2.rectangle(rgb_resize, (left, top), (right, bottom),
                                 (0, 255, 0), 2)
                 y = top - 15 if top - 15 > 15 else top + 15
-                cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
+                cv2.putText(rgb_resize, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
                             0.75, (0, 255, 0), 2)
 
 
@@ -118,9 +118,8 @@ def Recognition():
                 writer.write(frame)
                     # check to see if we are supposed to display the output frame to
                     # the screen
-            if len(boxes) >= 0:
-                rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                rgb_resize = imutils.resize(rgb, width=1050)
+            if len(boxes) >= 1:
+
                 cv2.imshow("Frame", rgb_resize)
             key = cv2.waitKey(1) & 0xFF
 
