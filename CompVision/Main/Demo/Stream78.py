@@ -9,11 +9,12 @@ import pickle
 import CreatingWhiteList as whtlst
 import datetime
 
-if not os.path.exists(cf.base_dir + '/DB_csv/'):
-    os.makedirs(cf.base_dir + '/DB_csv/')
-with open(cf.base_dir+'/DB_csv/records.csv','w+') as f:
-    f.write("Person; Time")
-    f.write("\n")
+if not os.path.exists(cf.base_dir + '/DB_csv'):
+    os.makedirs(cf.base_dir + '/DB_csv')
+    with open(cf.base_dir + '/DB_csv/records.csv', 'a') as f:
+        f.write("Person; Time")
+        f.write("\n")
+
 
 def Recognition():
     data = pickle.loads(open(cf.base_dir+'/EncodedFaces/EncodedFaces.pickle', "rb").read())
@@ -21,21 +22,22 @@ def Recognition():
     print("[INFO] starting video stream...")
     # vs = VideoStream('rtsp://80.254.24.22:554').start()  # rtsp://80.254.24.22:554  rtsp://192.168.10.165:554
     cap = cv2.VideoCapture()
-    cap.open('rtsp://80.254.24.22:554')
+    cap.open('rtsp://192.168.10.165:554')
     writer = None
     time.sleep(2.0)
 
-    num_frames = 20
+    num_frames = 100
 
     # loop over frames from the video file stream
     while True:
 
         # grab the frame from the threaded video stream
         for i in range(0, num_frames):
-
             ret, frame = cap.read() # for VideoCapture()
             print(ret)
+
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
             rgb_resize = imutils.resize(rgb, width=1050)
             # cv2.imshow('Frame3', rgb_resize)
             r = frame.shape[1] / float(rgb_resize.shape[1])
@@ -87,22 +89,21 @@ def Recognition():
                 with open(cf.base_dir + '/DB_csv/records.csv', 'a') as outfile:
                     outfile.write(csv_line + "\n")
             for ((top, right, bottom, left), name) in zip(boxes, names):
-                # rescale the face coordinates
+                  # rescale the face coordinates
                 top = int(top)
                 right = int(right)
                 bottom = int(bottom)
                 left = int(left)
 
-                '''
-                # draw the predicted face name on the image
-                cv2.rectangle(frame, (left, top), (right, bottom),
+                        # draw the predicted face name on the image
+                cv2.rectangle(rgb_resize, (left, top), (right, bottom),
                                 (0, 255, 0), 2)
                 y = top - 15 if top - 15 > 15 else top + 15
-                cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
+                cv2.putText(rgb_resize, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
                             0.75, (0, 255, 0), 2)
 
-                '''
-            '''
+
+
             if writer is None and cf.VideoOut_file is not None:
                 fourcc = cv2.VideoWriter_fourcc(*"MJPG")
                 writer = cv2.VideoWriter(cf.VideoOut_file, fourcc, 20,
@@ -114,22 +115,19 @@ def Recognition():
                 writer.write(frame)
                     # check to see if we are supposed to display the output frame to
                     # the screen
-            '''
-            '''
-            if len(boxes) >= 0:
-                rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                rgb_resize = imutils.resize(rgb, width=1050)
-                cv2.imshow("Frame", rgb_resize)
+            if len(boxes) >= 1:
+
+                #cv2.imshow("Frame", rgb_resize)
             key = cv2.waitKey(1) & 0xFF
 
                     # if the `q` key was pressed, break from the loop
             if key == ord("q"):
                 break
         break
-            '''
+
     #cv2.destroyAllWindows()
-    # cap.release()
-    # writer.release()
+    cap.release()
+    writer.release()
 
 
 
