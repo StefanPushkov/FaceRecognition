@@ -121,10 +121,10 @@ def Recognition():
 
             if len(boxes) >= 0:
                 # cv2.imshow("Frame", rgb_resize)
-                nparr = np.fromstring(rgb_resize, np.uint8)
-                frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+                # nparr = np.fromstring(rgb_resize, np.uint8)
+                frame = process(rgb_resize)
                 print(frame)
-                return frame
+                
             key = cv2.waitKey(1) & 0xFF
 
                     # if the `q` key was pressed, break from the loop
@@ -137,7 +137,8 @@ def Recognition():
     cap.release()
     writer.release()
 
-
+def process(frame_from_video):
+    return frame_from_video.tobytes()
 
 if __name__ == '__main__':
     Recognition()
