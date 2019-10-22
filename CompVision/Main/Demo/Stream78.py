@@ -1,5 +1,6 @@
 import config as cf
 import os
+import numpy as np
 import face_recognition
 import imutils
 import time
@@ -41,6 +42,7 @@ def Recognition():
 
             rgb_resize = imutils.resize(rgb, width=1050)
             cv2.imshow('Frame3', rgb_resize)
+
             r = frame.shape[1] / float(rgb_resize.shape[1])
 
 
@@ -117,8 +119,12 @@ def Recognition():
                     # check to see if we are supposed to display the output frame to
                     # the screen
 
-            if len(boxes) >= 1:
-                cv2.imshow("Frame", rgb_resize)
+            if len(boxes) >= 0:
+                # cv2.imshow("Frame", rgb_resize)
+                nparr = np.fromstring(rgb_resize, np.uint8)
+                frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+                print(frame)
+                return frame
             key = cv2.waitKey(1) & 0xFF
 
                     # if the `q` key was pressed, break from the loop
