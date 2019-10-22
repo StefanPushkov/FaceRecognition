@@ -111,23 +111,10 @@ def Recognition():
                 writer = cv2.VideoWriter(VideoOutFile, fourcc, 20,
                                         (frame.shape[1], frame.shape[0]), True)
 
-                # if the writer is not None, write the frame with recognized
-                # faces to disk
             if writer is not None:
                 writer.write(frame)
-                    # check to see if we are supposed to display the output frame to
-                    # the screen
-            '''
-            if len(boxes) >= 1:
-                cv2.imshow("Frame", rgb_resize)
-            key = cv2.waitKey(1) & 0xFF
 
-                    # if the `q` key was pressed, break from the loop
-            if key == ord("q"):
-                break
-            '''
-
-            return frame
+                return rgb_resize
         break
     #cv2.destroyAllWindows()
     cap.release()
