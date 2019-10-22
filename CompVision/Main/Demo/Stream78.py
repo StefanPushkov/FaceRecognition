@@ -41,7 +41,7 @@ def Recognition():
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
             rgb_resize = imutils.resize(rgb, width=1050)
-            cv2.imshow('Frame3', rgb_resize)
+            # cv2.imshow('Frame3', rgb_resize)
 
             r = frame.shape[1] / float(rgb_resize.shape[1])
 
