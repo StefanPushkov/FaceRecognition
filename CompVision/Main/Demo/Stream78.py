@@ -40,7 +40,7 @@ def Recognition():
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
             rgb_resize = imutils.resize(rgb, width=1050)
-            # cv2.imshow('Frame3', rgb_resize)
+            cv2.imshow('Frame3', rgb_resize)
             r = frame.shape[1] / float(rgb_resize.shape[1])
 
 
@@ -116,7 +116,7 @@ def Recognition():
                 writer.write(frame)
                     # check to see if we are supposed to display the output frame to
                     # the screen
-            '''
+
             if len(boxes) >= 1:
                 cv2.imshow("Frame", rgb_resize)
             key = cv2.waitKey(1) & 0xFF
@@ -124,7 +124,7 @@ def Recognition():
                     # if the `q` key was pressed, break from the loop
             if key == ord("q"):
                 break
-            '''
+
         break
 
     #cv2.destroyAllWindows()
