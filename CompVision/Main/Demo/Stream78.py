@@ -6,7 +6,7 @@ import time
 import cv2
 import pickle
 import CreatingWhiteList as whtlst
-import datetimeш
+
 
 VideoOutFile = '/home/spushkov/FaceRecognition/CompVision/Main/Data/out.avi'
 
