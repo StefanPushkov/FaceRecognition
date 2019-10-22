@@ -6,7 +6,7 @@ import time
 import cv2
 import pickle
 import CreatingWhiteList as whtlst
-import datetime
+import datetimeш
 
 VideoOutFile = '/home/spushkov/FaceRecognition/CompVision/Main/Data/out.avi'
 
@@ -126,8 +126,9 @@ def Recognition():
             if key == ord("q"):
                 break
             '''
-        break
 
+            return frame
+        break
     #cv2.destroyAllWindows()
     cap.release()
     writer.release()
