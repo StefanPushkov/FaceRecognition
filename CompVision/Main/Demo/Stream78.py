@@ -36,7 +36,7 @@ def Recognition():
         # grab the frame from the threaded video stream
         for i in range(0, num_frames):
             ret, frame = cap.read() # for VideoCapture()
-            print(ret)
+            # print(ret)
 
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -122,9 +122,9 @@ def Recognition():
             if len(boxes) >= 0:
                 # cv2.imshow("Frame", rgb_resize)
                 # nparr = np.fromstring(rgb_resize, np.uint8)
-                frame = process(rgb_resize)
-                print(frame)
-                
+                process(rgb_resize)
+
+
             key = cv2.waitKey(1) & 0xFF
 
                     # if the `q` key was pressed, break from the loop
