@@ -21,7 +21,7 @@ if not os.path.exists(cf.base_dir + '/DB_csv'):
 def Recognition():
     data = pickle.loads(open(cf.base_dir+'/EncodedFaces/EncodedFaces.pickle', "rb").read())
     known_encodings, known_names = data['encodings'], data['names']
-    print("[INFO] starting video stream...")
+    # print("[INFO] starting video stream...")
     # vs = VideoStream('rtsp://80.254.24.22:554').start()  # rtsp://80.254.24.22:554  rtsp://192.168.10.165:554
     cap = cv2.VideoCapture()
     cap.open('rtsp://80.254.24.22:554')
@@ -122,7 +122,8 @@ def Recognition():
             if len(boxes) >= 0:
                 # cv2.imshow("Frame", rgb_resize)
                 # nparr = np.fromstring(rgb_resize, np.uint8)
-                process(rgb_resize)
+                a = process(rgb_resize)
+                print(a)
 
 
             key = cv2.waitKey(1) & 0xFF
