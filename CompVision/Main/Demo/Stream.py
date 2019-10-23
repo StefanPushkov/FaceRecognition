@@ -1,12 +1,13 @@
 from imutils.video import VideoStream
 import config as cf
 import os
+import numpy as np
 import face_recognition
 import imutils
 import time
 import cv2
 import pickle
-import CreatingWhiteList as whtlst
+
 import datetime
 
 if not os.path.exists(cf.base_dir + '/DB_csv'):
@@ -19,7 +20,7 @@ if not os.path.exists(cf.base_dir + '/DB_csv'):
 def Recognition():
     data = pickle.loads(open(cf.base_dir+'/EncodedFaces/EncodedFaces.pickle', "rb").read())
     known_encodings, known_names = data['encodings'], data['names']
-    print("[INFO] starting video stream...")
+    # print("[INFO] starting video stream...")
     # vs = VideoStream('rtsp://80.254.24.22:554').start()  # rtsp://80.254.24.22:554  rtsp://192.168.10.165:554
     cap = cv2.VideoCapture()
     cap.open('rtsp://192.168.10.165:554')
@@ -28,13 +29,15 @@ def Recognition():
 
     num_frames = 100
 
+    vid_frames = []
+
     # loop over frames from the video file stream
     while True:
 
         # grab the frame from the threaded video stream
         for i in range(0, num_frames):
             ret, frame = cap.read() # for VideoCapture()
-            print(ret)
+            # print(ret)
             # frame = vs.read()
             # frame = imutils.resize(frame, width=750)
             # cv2.imshow('Frame1', frame)
@@ -43,7 +46,7 @@ def Recognition():
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             # cv2.imshow('Frame2', rgb)
             rgb_resize = imutils.resize(rgb, width=1050)
-            cv2.imshow('Frame3', rgb_resize)
+            #cv2.imshow('Frame3', rgb_resize)
             r = frame.shape[1] / float(rgb_resize.shape[1])
 
 
@@ -119,9 +122,15 @@ def Recognition():
                 writer.write(frame)
                     # check to see if we are supposed to display the output frame to
                     # the screen
-            if len(boxes) >= 1:
+            if len(boxes) >= 0:
+                # vid_frames.append(rgb_resize)
+                # vid_frames = np.asarray(vid_frames, dtype='uint8')[:-1]
+                a = process(rgb_resize)
+                print(a)
 
-                cv2.imshow("Frame", rgb_resize)
+
+
+                #cv2.imshow("Frame", rgb_resize)
             key = cv2.waitKey(1) & 0xFF
 
                     # if the `q` key was pressed, break from the loop
@@ -133,7 +142,9 @@ def Recognition():
     cap.release()
     writer.release()
 
+def process(frame_from_video):
+    return frame_from_video.tobytes()
 
 
-if __name__ == '__main__':
-    Recognition()
+# if __name__ == '__main__':
+#    Recognition()
